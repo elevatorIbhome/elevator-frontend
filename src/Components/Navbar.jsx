@@ -12,6 +12,7 @@ const Navbar = () => {
         <li className='roboto'><NavLink to='/contact'  className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Contact</NavLink></li>
 
         <li className='roboto'><NavLink to='/news'  className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Latest News</NavLink></li>
+        <li className='roboto'><NavLink to='/dashboard'  className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Demo DashBorad</NavLink></li>
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm rounder-lg">
