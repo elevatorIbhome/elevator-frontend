@@ -10,13 +10,13 @@ const DashBoard = () => {
     const [activeTab, setActiveTab] = useState('memberships');
 
     const tabs = [
-        { id: 'memberships', label: 'Memberships',to :"/about" },
-        { id: 'history', label: 'History' },
-        { id: 'profile', label: 'Profile' },
-        { id: 'downloads', label: 'Downloads' },
+        { id: 'memberships', label: 'Memberships',to :"/dashboard" },
+        { id: 'history', label: 'History', to:"/dashboard/history" },
+        { id: 'profile', label: 'Profile', to:"/dashboard/profile"},
+        { id: 'downloads', label: 'Downloads',to:"/dashboard/downloads"},
     ];
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen  py-8 my-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* User Avatar Section */}
                 <div className="flex flex-col items-center mb-8">
@@ -40,7 +40,7 @@ const DashBoard = () => {
                 <div className="flex justify-center mb-8">
                     <div className="bg-gray-800 rounded-full p-1 flex items-center gap-1 shadow-lg flex-wrap justify-center">
                         {tabs.map((tab) => (
-                            <NavLink  
+                            <NavLink  to={`${tab.to}`}
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeTab === tab.id

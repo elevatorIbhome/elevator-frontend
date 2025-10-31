@@ -7,6 +7,10 @@ import News from "../Pages/LatestNews/News";
 import About from "../Pages/About/About";
 import DashBoard from "../Pages/DashBoard/DashBoard";
 import DashLayout from "../Layout/DashLayout.jsx/DashLayout";
+import Member from "../Pages/DashBoard/Member/Member";
+import History from "../Pages/DashBoard/History/History";
+import Profile from "../Pages/DashBoard/Profile/Profile";
+import Download from "../Pages/DashBoard/Download/Download";
 
 
 export const router = createBrowserRouter([
@@ -22,6 +26,12 @@ export const router = createBrowserRouter([
   },
   {
     path:"/dashboard",
-    Component:DashLayout
+    Component:DashLayout,
+    children:[
+      {index : true , Component: Member},
+      {path : "history", Component: History}, 
+      {path : "profile", Component: Profile}, 
+      {path : "downloads", Component: Download}, 
+    ]
   }
 ]);
