@@ -5,6 +5,8 @@ import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import Membership from "../Pages/Membership/Membership";
 import News from "../Pages/LatestNews/News";
 import About from "../Pages/About/About";
+import DashBoard from "../Pages/DashBoard/DashBoard";
+import DashLayout from "../Layout/DashLayout.jsx/DashLayout";
 
 
 export const router = createBrowserRouter([
@@ -18,4 +20,8 @@ export const router = createBrowserRouter([
       {path:"/about",Component:About}
     ]
   },
+  {
+    path:"/dashboard",
+    Component:DashLayout
+  }
 ]);
