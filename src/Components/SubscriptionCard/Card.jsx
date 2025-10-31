@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 const pricingData = [
     {
         title: "Intro",
@@ -114,9 +115,9 @@ const Card = () => {
                                     <span>{pricing.usp}</span>
                                 </li>
                             </ul>
-                            <div className="mt-6">
+                            <Link to='/dashboard' className="mt-6">
                                 <button className="btn text-white  btn-block bg-[#00C853] hover:bg-[#00B140] hover:shadow-2xl">Start Membership</button>
-                            </div>
+                            </Link>
                         </div>
                     </div>)
                 }
