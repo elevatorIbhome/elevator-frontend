@@ -1,9 +1,9 @@
 import React from 'react';
 import { FaExclamationTriangle, FaRocket, FaDownload } from 'react-icons/fa';
-import { useNavigate } from 'react-router';
+
 
 const Download = () => {
-    const navigate = useNavigate();
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center p-6 relative overflow-hidden">
       {/* Animated Background Stars */}
