@@ -11,27 +11,39 @@ import Member from "../Pages/DashBoard/Member/Member";
 import History from "../Pages/DashBoard/History/History";
 import Profile from "../Pages/DashBoard/Profile/Profile";
 import Download from "../Pages/DashBoard/Download/Download";
+import Login from "../AuthPage/LoginPage/Login";
+import Signup from "../AuthPage/Signup/Signup";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component:Root,
-    children:[
-      {index:true, Component : Home},
-      {path:"/member", Component : Membership},
-      {path:"/news",Component : News},
-      {path:"/about",Component:About}
+    Component: Root,
+    children: [
+      { index: true, Component: Home },
+      { path: "/member", Component: Membership },
+      { path: "/news", Component: News },
+      { path: "/about", Component: About },
     ]
   },
+
   {
-    path:"/dashboard",
-    Component:DashLayout,
-    children:[
-      {index : true , Component: Member},
-      {path : "history", Component: History}, 
-      {path : "profile", Component: Profile}, 
-      {path : "downloads", Component: Download}, 
+    path: "/login",
+    Component: Login
+  },
+  {
+    path: "/signup",
+    Component: Signup
+  },
+
+  {
+    path: "/dashboard",
+    Component: DashLayout,
+    children: [
+      { index: true, Component: Member },
+      { path: "history", Component: History },
+      { path: "profile", Component: Profile },
+      { path: "downloads", Component: Download },
     ]
   }
 ]);

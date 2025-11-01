@@ -1,18 +1,18 @@
 import React from 'react';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 
 const Navbar = () => {
     const links = <>
-        <li className='roboto'><NavLink to='/'  className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} > Home</NavLink></li>
+        <li className='roboto'><NavLink to='/' className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} > Home</NavLink></li>
 
-        <li className='roboto'><NavLink to='/member'  className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Membership Page</NavLink></li>
+        <li className='roboto'><NavLink to='/member' className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Membership Page</NavLink></li>
 
-        <li className='roboto'><NavLink to='/about'  className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} > About</NavLink></li>
+        <li className='roboto'><NavLink to='/about' className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} > About</NavLink></li>
 
-        <li className='roboto'><NavLink to='/contact'  className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Contact</NavLink></li>
+        <li className='roboto'><NavLink to='/contact' className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Contact</NavLink></li>
 
-        <li className='roboto'><NavLink to='/news'  className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Latest News</NavLink></li>
-        <li className='roboto'><NavLink to='/dashboard'  className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Demo DashBorad</NavLink></li>
+        <li className='roboto'><NavLink to='/news' className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Latest News</NavLink></li>
+        <li className='roboto'><NavLink to='/dashboard' className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Demo DashBorad</NavLink></li>
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm rounder-lg">
@@ -24,15 +24,15 @@ const Navbar = () => {
                     <ul
                         tabIndex="-1"
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                            {
-                                links
-                            }
+                        {
+                            links
+                        }
 
                     </ul>
                 </div>
-              <div className='w-16'>
-                 <img src="/src/assets/logo.png" alt="" />
-              </div>
+                <div className='w-16'>
+                    <img src="/src/assets/logo.png" alt="" />
+                </div>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -41,8 +41,13 @@ const Navbar = () => {
                     }
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a >text</a>
+            <div className="navbar-end gap-4">
+                <Link to={'/login'} className="btn  roboto bg-[#00C853] hover:bg-[#00B140] text-white border-none rounded-lg flex items-center gap-2 px-6 py-3 font-medium">
+                    Login
+                </Link>
+                <Link to='/signup' className="btn  roboto btn-primary border-none rounded-lg flex items-center gap-2 px-6 py-3 font-medium">
+                    Sign Up
+                </Link>
             </div>
         </div>
     );
