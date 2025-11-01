@@ -17,7 +17,7 @@ const Banner = () => {
                             className="w-80 h-72 md:ml-20"
                         />
                     </div>
-                    <div className='w-[50%]'>
+                    <div className='md:w-[50%]'>
                         <h1 className="text-2xl font-bold">Plan Smart, Profit Big – AI-Powered Demand Forecasts!</h1>
                         <p className="pt-6 pb-3 text-gray-600">
                             Our subscription-based solution analyzes local events like concerts and conferences to predict demand peaks.Affordable, accurate, and professional – transform your business planning today

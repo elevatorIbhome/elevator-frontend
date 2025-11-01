@@ -86,7 +86,7 @@ const pricingData = [
 const Card = () => {
     return (
         <div>
-            <div className='w-10/12 mx-auto grid md:grid-cols-2 gap-y-5'>
+            <div className='w-10/12 mx-auto grid md:grid-cols-2 md:gap-y-5 mt-20'>
                 {
                     pricingData.map((pricing, index) => <div key={index} className="card w-96 bg-base-100 shadow-sm hover:shadow-2xl mb-10">
                         <div className="card-body  ">
