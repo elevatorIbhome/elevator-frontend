@@ -35,9 +35,13 @@ const Signup = () => {
                     title: "Account Created!",
                     text: `Welcome, ${fullName}!`,
                     icon: "success",
-                    confirmButtonColor: "#3085d6",
+                    timer: 2000,
+                    showConfirmButton: false,
+                    timerProgressBar: true,
                 });
-                navigate('/dashboard')
+                setTimeout(() => {
+                    navigate("/dashboard");
+                }, 2000);
             })
             .catch((error) => {
                 console.error("Error:", error.message);

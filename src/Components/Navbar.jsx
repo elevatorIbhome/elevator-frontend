@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
+import { AuthContext } from '../Context/AuthContext/AuthContext';
 
 const Navbar = () => {
+    const { user } = use(AuthContext);
+    console.log(user)
+
     const links = <>
         <li className='roboto'><NavLink to='/' className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} > Home</NavLink></li>
 
@@ -12,7 +16,10 @@ const Navbar = () => {
         <li className='roboto'><NavLink to='/contact' className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Contact</NavLink></li>
 
         <li className='roboto'><NavLink to='/news' className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Latest News</NavLink></li>
-        <li className='roboto'><NavLink to='/dashboard' className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >Demo DashBorad</NavLink></li>
+        {
+            user && <li className='roboto'><NavLink to='/dashboard' className={({ isActive }) => isActive ? "active text-green-800 font-semibold border-b-2" : ""} >DashBorad</NavLink></li>
+        }
+
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm rounder-lg">
@@ -42,12 +49,16 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end gap-4">
-                <Link to={'/login'} className="btn  roboto bg-[#00C853] hover:bg-[#00B140] text-white border-none rounded-lg flex items-center gap-2 px-6 py-3 font-medium">
-                    Login
-                </Link>
-                <Link to='/signup' className="btn  roboto btn-primary border-none rounded-lg flex items-center gap-2 px-6 py-3 font-medium">
-                    Sign Up
-                </Link>
+                {
+                    user ? 'he' : (<>
+                        <Link to={'/login'} className="btn  roboto bg-[#00C853] hover:bg-[#00B140] text-white border-none rounded-lg flex items-center gap-2 px-6 py-3 font-medium">
+                            Login
+                        </Link>
+                        <Link to='/signup' className="btn  roboto btn-primary border-none rounded-lg flex items-center gap-2 px-6 py-3 font-medium">
+                            Sign Up
+                        </Link>
+                    </>)
+                }
             </div>
         </div>
     );

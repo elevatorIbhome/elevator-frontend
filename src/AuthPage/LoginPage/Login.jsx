@@ -1,31 +1,56 @@
 import React, { use } from 'react';
-import { useForm } from 'react-hook-form'; 
-import Lottie from 'lottie-react'; 
-import { FcGoogle } from 'react-icons/fc'; 
+import { useForm } from 'react-hook-form';
+import Lottie from 'lottie-react';
+import { FcGoogle } from 'react-icons/fc';
 import loginLottie from "../../assets/login.json"
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../Context/AuthContext/AuthContext';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-
-    const {signIn} = use(AuthContext) ;
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { signIn } = use(AuthContext);
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data); 
-    console.log(signIn)
+    console.log(data);
+    const { email, password } = data;
+
+    signIn(email, password)
+      .then((result) => {
+        Swal.fire({
+          title: "Welcome Back!",
+          text: `Hello, ${result.user.displayName || result.user.email}!`,
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+          timerProgressBar: true,
+        });
+
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 2000);
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Sign-In Failed!",
+          text: error.message,
+          icon: "error",
+          confirmButtonColor: "#d33",
+        });
+      })
   };
-    return (
-       <div className="min-h-screen flex items-center justify-center ">
+  return (
+    <div className="min-h-screen flex items-center justify-center ">
       <div className="hero min-h-screen ">
         <div className="hero-content flex-col lg:flex-row-reverse max-w-6xl">
           {/* Right Side: Illustration */}
           <div className="text-center md:ml-20 lg:text-left md:pl-8">
             {/* Lottie Animation */}
-            <Lottie 
-              animationData={loginLottie} 
+            <Lottie
+              animationData={loginLottie}
               loop={true}
-              className="md:w-[80%] md:h-[80%] w-96 h-96  lg:mx-0" 
+              className="md:w-[80%] md:h-[80%] w-96 h-96  lg:mx-0"
             />
           </div>
 
@@ -80,7 +105,7 @@ const Login = () => {
 
               {/* Google Login Button */}
               <div className="divider">Or continue with</div>
-              
+
 
               {/* Sign Up Link */}
               <div className="text-center mt-4">
@@ -92,7 +117,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default Login;
