@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 
 
 const Signup = () => {
+    let createdUser
     const { createUser, updateUserProfile } = use(AuthContext);
     const navigate = useNavigate();
     const {
@@ -27,8 +28,28 @@ const Signup = () => {
             .then((result) => {
                 console.log("User created:", result.user);
                 // Update profile (name)
+                createdUser=result.user
                 return updateUserProfile(fullName);
             })
+
+            .then(() => {
+                const userInfo = {
+                    userId: createdUser.uid,
+                    name: fullName,
+                    email: email,
+                    role: "user",
+                    isSubscribed: false,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                };
+                
+                return fetch("http://localhost:3000/users", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(userInfo),
+                });
+            })
+
             .then(() => {
                 // Show success SweetAlert after profile update
                 Swal.fire({

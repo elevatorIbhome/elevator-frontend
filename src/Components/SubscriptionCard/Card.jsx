@@ -86,9 +86,9 @@ const pricingData = [
 const Card = () => {
     return (
         <div>
-            <div className='w-10/12 mx-auto grid md:grid-cols-2 md:gap-y-5 mt-20'>
+            <div className='md:w-10/12 w-full md:mx-auto grid md:grid-cols-2 md:gap-20 lg:mt-20 '>
                 {
-                    pricingData.map((pricing, index) => <div key={index} className="card w-96 bg-base-100 shadow-sm hover:shadow-2xl mb-10">
+                    pricingData.map((pricing, index) => <div key={index} className="card md:w-96 w-full bg-base-100 shadow-sm hover:shadow-2xl mb-10">
                         <div className="card-body  ">
                             <div className='flex justify-between'>
                                 <span className="badge badge-md badge-warning">{pricing.period}</span>
@@ -97,7 +97,7 @@ const Card = () => {
                                 }
                                 </div>
                             <div className="flex justify-between">
-                                <h2 className="text-3xl font-bold">{pricing.title}</h2>
+                                <h2 className="md:text-3xl text-2xl font-bold">{pricing.title}</h2>
                                 <span className="text-xl">{pricing.price} {pricing.currency}</span>
                             </div>
                             {

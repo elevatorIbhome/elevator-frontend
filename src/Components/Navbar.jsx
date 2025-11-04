@@ -51,7 +51,7 @@ const Navbar = () => {
             </div>
             <div className="navbar-end gap-4">
                 {
-                    user ? (<Link to='/dashboard' className='flex items-center gap-3 flex-row-reverse'><FaUser className="w-10 h-10 text-white bg-blue-500 rounded-full"/><span className='font-semibold roboto text-green-500'>Hello,{user.displayName}</span></Link>) : (<>
+                    user ? (<Link to='/dashboard' className='flex items-center gap-3 flex-row-reverse'><FaUser className="md:w-10 md:h-10 w-8 h-8 text-white bg-blue-500 rounded-full"/><span className='md:font-semibold roboto text-green-500 text-sm md:text-xl'>Hello,{user.displayName}</span></Link>) : (<>
                         <Link to={'/login'} className="btn  roboto bg-[#00C853] hover:bg-[#00B140] text-white border-none rounded-lg flex items-center gap-2 px-6 py-3 font-medium">
                             Login
                         </Link>
