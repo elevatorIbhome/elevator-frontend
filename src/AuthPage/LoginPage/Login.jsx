@@ -43,14 +43,14 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center ">
       <div className="hero min-h-screen ">
-        <div className="hero-content flex-col lg:flex-row-reverse max-w-6xl">
+        <div className="hero-content flex-col lg:flex-row-reverse md:max-w-6xl">
           {/* Right Side: Illustration */}
           <div className="text-center md:ml-20 lg:text-left md:pl-8">
             {/* Lottie Animation */}
             <Lottie
               animationData={loginLottie}
               loop={true}
-              className="md:w-[80%] md:h-[80%] w-96 h-96  lg:mx-0"
+              className="md:w-[80%] md:h-[80%] w-full h-full  lg:mx-0"
             />
           </div>
 
