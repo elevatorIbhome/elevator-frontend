@@ -88,7 +88,7 @@ const ActivateCard = () => {
         <div>
             <div className='md:w-10/12 w-full md:mx-auto grid md:grid-cols-2 gap-y-5 md:gap-x-20'>
                 {
-                    pricingData.map((pricing, index) => <div key={index} className="card w-96 bg-base-100 shadow-sm hover:shadow-2xl mb-10">
+                    pricingData.map((pricing, index) => <div key={index} className="card md:w-96 bg-base-100 shadow-sm hover:shadow-2xl mb-10">
                         <div className="card-body  ">
                             <div className='flex justify-between'>
                                 <span className="badge badge-md badge-warning">{pricing.period}</span>
