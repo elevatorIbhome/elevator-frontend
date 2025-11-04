@@ -35,8 +35,8 @@ const DashBoard = () => {
             })
     }
     return (
-        <div className="min-h-screen  py-8 my-10">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen py-8 my-10">
+            <div className="md:max-w-7xl w-full lg:mx-auto">
                 {/* User Avatar Section */}
                 <div className="flex flex-col items-center mb-8">
                     <div className="relative">
