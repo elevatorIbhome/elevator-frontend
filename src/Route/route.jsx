@@ -13,6 +13,7 @@ import Profile from "../Pages/DashBoard/Profile/Profile";
 import Download from "../Pages/DashBoard/Download/Download";
 import Login from "../AuthPage/LoginPage/Login";
 import Signup from "../AuthPage/Signup/Signup";
+import PrivateRoute from "./PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -38,7 +39,7 @@ export const router = createBrowserRouter([
 
   {
     path: "/dashboard",
-    Component: DashLayout,
+    element:<PrivateRoute> <DashLayout></DashLayout></PrivateRoute>,
     children: [
       { index: true, Component: Member },
       { path: "history", Component: History },

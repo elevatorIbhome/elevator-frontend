@@ -2,6 +2,7 @@ import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../Context/AuthContext/AuthContext';
 import { FaUser } from 'react-icons/fa';
+import { div } from 'framer-motion/client';
 
 const Navbar = () => {
     const { user } = use(AuthContext);
@@ -57,7 +58,7 @@ const Navbar = () => {
                         </Link>
                         <Link to='/signup' className="btn  roboto btn-primary border-none rounded-lg flex items-center gap-2 px-6 py-3 font-medium">
                             Sign Up
-                        </Link>
+                        </Link> : 
                     </>)
                 }
             </div>

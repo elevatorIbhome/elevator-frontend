@@ -1,7 +1,9 @@
+import { title } from 'framer-motion/client';
 import React from 'react';
 const pricingData = [
     {
         title: "Intro",
+        planId:'0001',
         subtitle: "Free",
         description:"",
         price: "0.00",
@@ -22,6 +24,7 @@ const pricingData = [
     },
     {
         title: "Local",
+        planId:'0002',
         subtitle: "",
          description:"Unlock precise demand forecasts for your city at a price lower than your morning coffee!",
         price: "15.00",
@@ -42,6 +45,7 @@ const pricingData = [
     },
     {
         title: "Regional",
+        planId:'0003',
         subtitle: "Most Popular",
         description:"Master demand peaks across 3 cities with unbeatable value for growing chains!",
         price: "395.00",
@@ -62,6 +66,7 @@ const pricingData = [
     },
     {
         title: "National",
+        planId:'0004',
         subtitle: "",
         description:"Conquer nationwide demand with scalable forecasts for your expanding empire!",
         price: "100.00",
@@ -84,6 +89,11 @@ const pricingData = [
 
 
 const ActivateCard = () => {
+
+  const handleActive = (priceing) =>{
+    console.log(priceing)
+  }
+
     return (
         <div>
             <div className='md:w-10/12 w-full md:mx-auto grid md:grid-cols-2 gap-y-5 md:gap-x-20'>
@@ -116,7 +126,7 @@ const ActivateCard = () => {
                                 </li>
                             </ul>
                             <div className="mt-6">
-                                <button className="btn text-white  btn-block bg-[#00C853] hover:bg-[#00B140] hover:shadow-2xl">Activate</button>
+                                <button onClick={()=>handleActive(pricing)} className="btn text-white  btn-block bg-[#00C853] hover:bg-[#00B140] hover:shadow-2xl">Activate</button>
                             </div>
                         </div>
                     </div>)
