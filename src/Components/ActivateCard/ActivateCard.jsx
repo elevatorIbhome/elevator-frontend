@@ -1,11 +1,13 @@
 import { title } from 'framer-motion/client';
-import React from 'react';
+import React, { use, useRef, useState } from 'react';
+import { AuthContext } from '../../Context/AuthContext/AuthContext';
+import Swal from 'sweetalert2';
 const pricingData = [
     {
         title: "Intro",
-        planId:'0001',
+        planId: '0001',
         subtitle: "Free",
-        description:"",
+        description: "",
         price: "0.00",
         currency: "kr. DKK",
         period: "7 Days",
@@ -24,9 +26,9 @@ const pricingData = [
     },
     {
         title: "Local",
-        planId:'0002',
+        planId: '0002',
         subtitle: "",
-         description:"Unlock precise demand forecasts for your city at a price lower than your morning coffee!",
+        description: "Unlock precise demand forecasts for your city at a price lower than your morning coffee!",
         price: "15.00",
         currency: "kr. DKK",
         period: "1 Months",
@@ -45,9 +47,9 @@ const pricingData = [
     },
     {
         title: "Regional",
-        planId:'0003',
+        planId: '0003',
         subtitle: "Most Popular",
-        description:"Master demand peaks across 3 cities with unbeatable value for growing chains!",
+        description: "Master demand peaks across 3 cities with unbeatable value for growing chains!",
         price: "395.00",
         currency: "kr. DKK",
         period: "1/Year",
@@ -66,9 +68,9 @@ const pricingData = [
     },
     {
         title: "National",
-        planId:'0004',
+        planId: '0004',
         subtitle: "",
-        description:"Conquer nationwide demand with scalable forecasts for your expanding empire!",
+        description: "Conquer nationwide demand with scalable forecasts for your expanding empire!",
         price: "100.00",
         currency: "kr. DKK",
         period: "1/Months",
@@ -89,10 +91,90 @@ const pricingData = [
 
 
 const ActivateCard = () => {
+    const [selectedPlan, setSelectedPlan] = useState(null);
+    const scrollTargetRef = useRef(null);
+    const { user } = use(AuthContext)
 
-  const handleActive = (priceing) =>{
-    console.log(priceing)
-  }
+    console.log('acctivee card', user)
+
+    const handleActive = (pricing, email) => {
+        setSelectedPlan(pricing);
+
+        // smooth scroll to bottom section
+        setTimeout(() => {
+            scrollTargetRef.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }, 200);
+
+        // Auto-send free plan to backend
+        if (pricing.planId === "0001") {
+            handleFreePlanSubmit(pricing, email);
+        }
+    };
+
+    //  Free plan 
+    const handleFreePlanSubmit = async (pricing, email) => {
+        const today = new Date();
+        const expire = new Date();
+        expire.setDate(today.getDate() + 7);
+
+        console.log(expire)
+
+        const payload = {
+            title: pricing.title,
+            planId: pricing.planId,
+            period: pricing.period,
+            email: email,
+            buyingDate: today.toISOString(),
+            expireDate: expire.toISOString(),
+        };
+
+        try {
+            const res = await fetch("http://localhost:3000/free", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                Swal.fire({
+                    title: "Subscription Activated!",
+                    text: `${pricing.title} plan is now active.`,
+                    icon: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            } else {
+                Swal.fire({
+                    title: "Error!",
+                    text: data.message || "Failed to activate subscription.",
+                    icon: "error",
+                    confirmButtonColor: "#d33"
+                });
+            }
+
+            console.log("Free plan activated:", data);
+
+        } catch (err) {
+            console.error("Free plan activation failed:", err);
+
+            Swal.fire({
+                title: "Network Error!",
+                text: "Could not connect to the server.",
+                icon: "error",
+                confirmButtonColor: "#d33"
+            });
+        }
+    };
+    // paid payment 
+    const handlePaidPlanPayment = () => {
+        console.log("Proceed to payment:", selectedPlan);
+        // redirect to stripe or your payment page
+    };
 
     return (
         <div>
@@ -105,7 +187,7 @@ const ActivateCard = () => {
                                 {
                                     pricing.subtitle && <div className="badge badge-dash badge-primary">{pricing.subtitle}</div>
                                 }
-                                </div>
+                            </div>
                             <div className="flex justify-between">
                                 <h2 className="md:text-3xl text-2xl font-bold">{pricing.title}</h2>
                                 <span className="text-xl">{pricing.price} {pricing.currency}</span>
@@ -126,11 +208,55 @@ const ActivateCard = () => {
                                 </li>
                             </ul>
                             <div className="mt-6">
-                                <button onClick={()=>handleActive(pricing)} className="btn text-white  btn-block bg-[#00C853] hover:bg-[#00B140] hover:shadow-2xl">Activate</button>
+                                <button onClick={() => handleActive(pricing, user.email)} className="btn text-white  btn-block bg-[#00C853] hover:bg-[#00B140] hover:shadow-2xl">Activate</button>
                             </div>
                         </div>
                     </div>)
                 }
+            </div>
+            {/* ---------- SUBSCRIPTION DETAILS SECTION ---------- */}
+            <div ref={scrollTargetRef} className="mt-20 p-6 bg-base-200">
+
+                {selectedPlan && (
+                    <div className="max-w-xl mx-auto bg-white shadow-lg p-6 rounded-lg">
+                        <h2 className="text-2xl font-bold mb-2">
+                            Subscription Details — {selectedPlan.title}
+                        </h2>
+
+                        <p className="text-gray-700 mb-3">{selectedPlan.description}</p>
+
+                        <p>
+                            <strong>User:</strong> {user.displayName}
+                        </p>
+                        <p>
+                            <strong>Price:</strong> {selectedPlan.price} {selectedPlan.currency}
+                        </p>
+                        <p>
+                            <strong>Duration:</strong> {selectedPlan.period}
+                        </p>
+
+                        <ul className="mt-4">
+                            {selectedPlan.features.map((f, i) => (
+                                <li key={i}>✔ {f}</li>
+                            ))}
+                        </ul>
+
+                        {/* Free plan → no payment button */}
+                        {selectedPlan.planId === "0001" ? (
+                            <p className="mt-6 text-green-600 font-semibold">
+                                ✔ Free plan activated automatically
+                            </p>
+                        ) : (
+                            <button
+                                onClick={handlePaidPlanPayment}
+                                className="btn mt-6 btn-primary w-full"
+                            >
+                                Proceed to Payment
+                            </button>
+                        )}
+                    </div>
+                )}
+
             </div>
 
         </div>
