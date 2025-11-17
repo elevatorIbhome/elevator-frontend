@@ -1,0 +1,86 @@
+[
+  {
+    "title": "Intro",
+    "planId": "0001",
+    "subtitle": "Free",
+    "description": "",
+    "price": "0.00",
+    "currency": "kr. DKK",
+    "period": "7 Days",
+    "badge": {
+      "text": "FREE TRIAL",
+      "color": "bg-gradient-to-r from-pink-500 to-red-500"
+    },
+    "features": [
+      "Covers: 1 city/area",
+      "Target group: All businesses curious to try without commitment."
+    ],
+    "usp": "First report free – experience the value before you decide.",
+    "buttonText": "Start membership",
+    "popular": false,
+    "mostPopular": false
+  },
+  {
+    "title": "Local",
+    "planId": "0002",
+    "subtitle": "",
+    "description": "Unlock precise demand forecasts for your city at a price lower than your morning coffee!",
+    "price": "15.00",
+    "currency": "kr. DKK",
+    "period": "1 Month",
+    "badge": {
+      "text": "LOCAL",
+      "color": "bg-orange-500"
+    },
+    "features": [
+      "Covers: 1 city/area",
+      "Target group: Small businesses operating in a single geographic area."
+    ],
+    "usp": "Cheaper than half a cup of coffee – and your city is covered.",
+    "buttonText": "Start membership",
+    "popular": true,
+    "mostPopular": false
+  },
+  {
+    "title": "Regional",
+    "planId": "0003",
+    "subtitle": "Most Popular",
+    "description": "Master demand peaks across 3 cities with unbeatable value for growing chains!",
+    "price": "395.00",
+    "currency": "kr. DKK",
+    "period": "1 Year",
+    "badge": {
+      "text": "VIP",
+      "color": "bg-gradient-to-r from-purple-500 to-indigo-500"
+    },
+    "features": [
+      "Covers: 3 cities/areas",
+      "Target group: Chains and companies operating across multiple cities."
+    ],
+    "usp": "Best value-for-money, per city.",
+    "buttonText": "Start membership",
+    "popular": false,
+    "mostPopular": true
+  },
+  {
+    "title": "National",
+    "planId": "0004",
+    "subtitle": "",
+    "description": "Conquer nationwide demand with scalable forecasts for your expanding empire!",
+    "price": "100.00",
+    "currency": "kr. DKK",
+    "period": "1 Month",
+    "badge": {
+      "text": "N",
+      "color": "bg-gradient-to-r from-red-500 to-orange-500"
+    },
+    "features": [
+      "Covers: Up to 10 cities/areas",
+      "Target group: Larger chains, hotels, or businesses with broad geographic presence."
+    ],
+    "usp": "The entire country in one package – ready to scale.",
+    "buttonText": "Start membership",
+    "popular": false,
+    "mostPopular": false
+  }
+]
