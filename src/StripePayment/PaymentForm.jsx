@@ -1,16 +1,45 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 
-const PaymentForm = ({pricingData,id}) => {
+const PaymentForm = ({pricingData}) => {
     const stripe = useStripe();
     const elements = useElements();
     const [error,setError]=useState("");
+    const id = useParams().id;
+     const [plan, setPlan] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // console.log(pricingData)
-    // console.log(typeof pricingData[0].planId)
 
-    const data = pricingData.filter(price => price.planId === id)
-    // console.log(data[0].title)
+    console.log(id)
+
+    // loading plansdata 
+     useEffect(() => {
+        if (!id) return;
+
+        const fetchPlan = async () => {
+            try {
+                const res = await fetch(`http://localhost:3000/plans/${id}`);
+                const data = await res.json();
+                setPlan(data);
+            } catch (err) {
+                console.error("Error loading plan:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPlan();
+    }, [id]);
+
+      if (loading) return <p className="text-center">Loading...</p>;
+
+      console.log("hello",plan)
+
+
+
+    const data = pricingData.find(price => price.planId === id)
+    console.log(data)
     //66.3
 
     const handleSubmit = async (e) => {
@@ -41,7 +70,7 @@ const PaymentForm = ({pricingData,id}) => {
     return (
         <div className="max-w-md mx-auto bg-white dark:bg-gray-900 shadow-lg rounded-xl p-6 border border-gray-200 dark:border-gray-700">
             <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
-                Complete Your Payment For 
+                Complete Your Payment For <span className='text-blue-600 font-bold'>{plan.title}</span>
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
