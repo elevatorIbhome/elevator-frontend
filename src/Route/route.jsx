@@ -14,6 +14,7 @@ import Download from "../Pages/DashBoard/Download/Download";
 import Login from "../AuthPage/LoginPage/Login";
 import Signup from "../AuthPage/Signup/Signup";
 import PrivateRoute from "./PrivateRoute";
+import Payment from "../StripePayment/Payment";
 
 
 export const router = createBrowserRouter([
@@ -39,12 +40,13 @@ export const router = createBrowserRouter([
 
   {
     path: "/dashboard",
-    element:<PrivateRoute> <DashLayout></DashLayout></PrivateRoute>,
+    element: <PrivateRoute> <DashLayout></DashLayout></PrivateRoute>,
     children: [
       { index: true, Component: Member },
       { path: "history", Component: History },
       { path: "profile", Component: Profile },
       { path: "downloads", Component: Download },
+      { path: "payment/:id", Component: Payment },
     ]
   }
 ]);

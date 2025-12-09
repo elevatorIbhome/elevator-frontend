@@ -2,6 +2,7 @@ import { title } from 'framer-motion/client';
 import React, { use, useEffect, useRef, useState } from 'react';
 import { AuthContext } from '../../Context/AuthContext/AuthContext';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 // const pricingData = [
 //     {
 //         title: "Intro",
@@ -91,10 +92,11 @@ import Swal from 'sweetalert2';
 
 
 const ActivateCard = () => {
+    const [pricingData,setPricingData]=useState([])
     const [selectedPlan, setSelectedPlan] = useState(null);
     const scrollTargetRef = useRef(null);
     const { user } = use(AuthContext)
-    const [pricingData,setPricingData]=useState([])
+    const navigate = useNavigate("/")
 
     useEffect(() => {
         fetch('/pricingData.json')
@@ -105,7 +107,7 @@ const ActivateCard = () => {
 
 
 
-    console.log('acctivee card', user)
+    // console.log('acctivee card', user)
 
     const handleActive = (pricing, email) => {
         setSelectedPlan(pricing);
@@ -181,9 +183,9 @@ const ActivateCard = () => {
         }
     };
     // paid payment 
-    const handlePaidPlanPayment = () => {
-        console.log("Proceed to payment:", selectedPlan);
-        // redirect to stripe or your payment page
+    const handlePaidPlanPayment = (id) => {
+        // console.log(id)
+            navigate(`/dashboard/payment/${id}`)
     };
 
     return (
@@ -258,7 +260,7 @@ const ActivateCard = () => {
                             </p>
                         ) : (
                             <button
-                                onClick={handlePaidPlanPayment}
+                                onClick={()=>handlePaidPlanPayment(selectedPlan.planId)}
                                 className="btn mt-6 btn-primary w-full"
                             >
                                 Proceed to Payment
