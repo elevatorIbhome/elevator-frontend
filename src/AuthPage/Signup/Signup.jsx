@@ -43,7 +43,7 @@ const Signup = () => {
                     updatedAt: new Date(),
                 };
                 
-                return fetch("http://localhost:3000/users", {
+                return fetch("https://elevator-backend.vercel.app/users", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(userInfo),

@@ -144,7 +144,7 @@ const ActivateCard = () => {
         };
 
         try {
-            const res = await fetch("http://localhost:3000/free", {
+            const res = await fetch("https://elevator-backend.vercel.app/free", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),

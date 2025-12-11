@@ -20,7 +20,7 @@ const Payment = () => {
     useEffect(()=>{
         console.log("token: ", user.accessToken);
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:3000/api/create-payment-intent", {
+        fetch("https://elevator-backend.vercel.app/api/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -21,7 +21,7 @@ const PaymentForm = ({pricingData}) => {
 
         const fetchPlan = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/plans/${id}`);
+                const res = await fetch(`https://elevator-backend.vercel.app/plans/${id}`);
                 const data = await res.json();
                 setPlan(data);
             } catch (err) {
