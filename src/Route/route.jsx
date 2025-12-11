@@ -15,6 +15,7 @@ import Login from "../AuthPage/LoginPage/Login";
 import Signup from "../AuthPage/Signup/Signup";
 import PrivateRoute from "./PrivateRoute";
 import Payment from "../StripePayment/Payment";
+import CompletePage from "../StripePayment/CompletePage";
 
 
 export const router = createBrowserRouter([

@@ -1,6 +1,7 @@
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { CardElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import Swal from "sweetalert2";
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { Navigate, useNavigate, useParams } from 'react-router';
 
 const PaymentForm = ({pricingData}) => {
     const stripe = useStripe();
@@ -9,6 +10,7 @@ const PaymentForm = ({pricingData}) => {
     const id = useParams().id;
      const [plan, setPlan] = useState(null);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate()
 
 
     console.log(id)
@@ -44,29 +46,69 @@ const PaymentForm = ({pricingData}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('hi')
-        if (!stripe || !elements) {
-            return;
+        if (!stripe || !elements) { 
+            console.error("Stripe is not initialized or elements are not mounted.");
+            return; 
         }
+        // setLoading(true); 
+        const returnUrl = `${window.location.origin}/payment/${id}/complete`;
+        console.log(returnUrl);
 
-        const card = elements.getElement(CardElement)
+        try {
+        
+            const { error, paymentIntent } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: returnUrl,
+                },
+                redirect: "if_required",
+            });
 
-        if (!card) {
-            return;
+            if (error) {
+                setError(error.message)
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Payment Failed",
+                    text: error.message,
+                });
+
+            } else if (paymentIntent?.status === "succeeded") {
+                Swal.fire({
+                    title: "Payment Successful!",
+                    html: `
+                        <p>Transaction ID: <strong>${paymentIntent.id}</strong></p>
+                        <p>Amount: <strong>${paymentIntent.amount / 100} DKK</strong></p>
+                    `,
+                    icon: "success",
+                    showCancelButton: false,
+                    confirmButtonText: "Go Home",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate("/");
+                    }
+                });
+
+            } else if (paymentIntent?.status === "requires_action") {
+                Swal.fire({
+                    icon: "info",
+                    title: "Additional Authentication Required",
+                    text: "Please complete the authentication prompt.",
+                });
+            }
+        } catch (e) {
+            console.error("Payment confirmation failed:", e);
+
+        } finally {
+            setLoading(false); 
         }
-
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: 'card',
-            card,
-        });
-
-        if (error) {
-          setError(error.message)
-        } else {
-            setError('')
-            console.log("payment method", paymentMethod)
-        }
+        
     }
+
+    const paymentElementOptions = {
+        layout: "accordion"
+    }
+
     return (
         <div className="max-w-md mx-auto bg-white dark:bg-gray-900 shadow-lg rounded-xl p-6 border border-gray-200 dark:border-gray-700">
             <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
@@ -77,25 +119,13 @@ const PaymentForm = ({pricingData}) => {
 
                 {/* Stripe Card Input */}
                 <div className="p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800">
-                    <CardElement
-                        className="text-gray-800 dark:text-gray-100"
-                        options={{
-                            style: {
-                                base: {
-                                    fontSize: "16px",
-                                    color: "#ffffff",
-                                    "::placeholder": { color: "#9CA3AF" }
-                                },
-                                invalid: { color: "#EF4444" }
-                            }
-                        }}
-                    />
+                    <PaymentElement options={paymentElementOptions} />
                 </div>   
 
                 {/* Submit Button */}
                 <button
                     type="submit"
-                    disabled={!stripe}
+                    disabled={loading || !stripe || !elements}
                     className={`w-full py-3 rounded-lg text-white font-semibold transition
                 ${!stripe
                             ? "bg-gray-400 cursor-not-allowed"
